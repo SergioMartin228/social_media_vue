@@ -1,11 +1,47 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-navigation-drawer
+      app
+      color="green"
+      dark
+      expand-on-hover
+      hide-overlay
+      permanent
+      right
+    >
+      <v-list
+        nav shaped dense
+      >
+        <v-list-item two-line>
+          <v-list-item-avatar>
+            <img src="https://randomuser.me/api/portraits/men/78.jpg" alt="">
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>SocialLink</v-list-item-title>
+            <v-list-item-subtitle>Сергей Чернышев</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider class="my-3"></v-divider>
+        <v-list-item link to="/">
+          <v-list-item-icon>
+            <v-icon>mdi-home-outline</v-icon>
+            <v-list-item-content>Главная</v-list-item-content>
+          </v-list-item-icon>
+        </v-list-item>
+        <v-list-item link to="/about">
+          <v-list-item-icon>
+            <v-icon>mdi-heart</v-icon>
+            <v-list-item-content></v-list-item-content>
+          </v-list-item-icon>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    <v-content app>
+      <v-container fluid>
+        <router-view />
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <style lang="scss">
