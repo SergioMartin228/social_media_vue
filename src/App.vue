@@ -25,24 +25,53 @@
         <v-list-item link to="/">
           <v-list-item-icon>
             <v-icon>mdi-home-outline</v-icon>
-            <v-list-item-content>Главная</v-list-item-content>
           </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title class="text-left">Главная</v-list-item-title>
+            </v-list-item-content>
         </v-list-item>
         <v-list-item link to="/about">
           <v-list-item-icon>
-            <v-icon>mdi-heart</v-icon>
-            <v-list-item-content></v-list-item-content>
+            <v-icon>mdi-account-box</v-icon>
           </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title class="text-left">Мой профиль</v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item link to="/users">
+          <v-list-item-icon>
+            <v-icon>mdi-account-multiple-plus</v-icon>
+          </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title class="text-left">Найти друзей</v-list-item-title>
+            </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-content app>
+    <v-main app>
       <v-container fluid>
-        <router-view />
+        <router-view v-on:login="updateUser($event)"/>
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
+
+<script>
+export default {
+  name:'App',
+  data(){
+    return{
+      user:{},
+    }
+  },
+  methods:{
+    updateUser(user){
+      this.user = user;
+      console.log(user);
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
