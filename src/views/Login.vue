@@ -20,7 +20,7 @@
       <v-alert v-if="loginFlag" color="red" type="error"
         >Логин и/или пароль введён неправильно</v-alert
       >
-      <v-btn @click="authenticate"> Войти </v-btn>
+      <v-btn @click="authenticate" v-on:click="$emit('authenticate')"> Войти </v-btn>
     </v-card>
   </div>
 </template>
@@ -50,15 +50,18 @@ export default {
               this.login == users[i].login &&
               this.password == users[i].password
             ) {
-              this.myId = Number(i) + 1;
-              this.$emit("login", i);
+              this.myId = String(Number(i) + 1);
+              this.$store.commit('setUID', this.myId);
+              this.$emit("login", this.myId);
               this.$router.push("/user/" + this.myId);
+              this.$store.commit('setAuthParam', true);
               found = true;
               break;
             }
           }
           if (!found) {
             this.loginFlag = true;
+            this.$store.commit('setAuthParam', false);
           }
         });
     },

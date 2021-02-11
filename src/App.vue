@@ -9,16 +9,17 @@
       permanent
       right
     >
-      <v-list
-        nav shaped dense
-      >
+      <v-list nav shaped dense>
         <v-list-item two-line>
           <v-list-item-avatar>
-            <img src="https://randomuser.me/api/portraits/men/78.jpg" alt="">
+            <img
+              :src="user.img"
+              alt=""
+            />
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>SocialLink</v-list-item-title>
-            <v-list-item-subtitle>Сергей Чернышев</v-list-item-subtitle>
+            <v-list-item-subtitle>{{$store.state.userData.name}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-divider class="my-3"></v-divider>
@@ -26,31 +27,38 @@
           <v-list-item-icon>
             <v-icon>mdi-home-outline</v-icon>
           </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="text-left">Главная</v-list-item-title>
-            </v-list-item-content>
+          <v-list-item-content>
+            <v-list-item-title class="text-left">Главная</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
         <v-list-item link to="/about">
           <v-list-item-icon>
             <v-icon>mdi-account-box</v-icon>
           </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="text-left">Мой профиль</v-list-item-title>
-            </v-list-item-content>
+          <v-list-item-content>
+            <router-link
+              :to="`/user/${$store.state.userData.id}`"
+              class="text-left caption"
+              tag="v-list-item-title"
+              >Мой профиль</router-link
+            >
+          </v-list-item-content>
         </v-list-item>
         <v-list-item link to="/users">
           <v-list-item-icon>
             <v-icon>mdi-account-multiple-plus</v-icon>
           </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="text-left">Найти друзей</v-list-item-title>
-            </v-list-item-content>
+          <v-list-item-content>
+            <v-list-item-title class="text-left"
+              >Найти друзей</v-list-item-title
+            >
+          </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-main app>
       <v-container fluid>
-        <router-view v-on:login="updateUser($event)"/>
+        <router-view v-on:authenticate="initPage" />
       </v-container>
     </v-main>
   </v-app>
@@ -58,19 +66,27 @@
 
 <script>
 export default {
-  name:'App',
-  data(){
-    return{
-      user:{},
+  name: "App",
+  data() {
+    return {
+      user:{
+        img:'https://im0-tub-ru.yandex.net/i?id=46879abc0a7a4cb04fcc7696aa6bd2fd&n=13',
+        name:''
+      },
+    };
+  },
+  methods: {
+    initPage(){
+      if(this.$store.state.isAuthorised){
+        this.user.img = `https://randomuser.me/api/portraits/men/${this.$store.state.userData.id}.jpg`;
+        this.user.name = this.$store.state.userData.name;
+      }
     }
   },
-  methods:{
-    updateUser(user){
-      this.user = user;
-      console.log(user);
-    }
+  mounted(){
+    this.initPage();
   }
-}
+};
 </script>
 
 <style lang="scss">
