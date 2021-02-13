@@ -78,6 +78,7 @@ export default {
   methods: {
     initPage(){
       if(this.$store.state.isAuthorised){
+        console.log("YES");
         this.user.img = `https://randomuser.me/api/portraits/men/${this.$store.state.userData.id}.jpg`;
         this.user.name = this.$store.state.userData.name;
       }
