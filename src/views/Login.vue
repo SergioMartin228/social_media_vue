@@ -51,17 +51,17 @@ export default {
               this.password == users[i].password
             ) {
               this.myId = String(Number(i) + 1);
-              this.$store.commit('setUID', this.myId);
-              this.$emit("authenticate");
+              this.$store.commit("setUID", this.myId);
               this.$router.push("/user/" + this.myId);
-              this.$store.commit('setAuthParam', true);
+              this.$store.commit("setAuthParam", true);
+              this.$emit("authenticate");
               found = true;
               break;
             }
           }
           if (!found) {
             this.loginFlag = true;
-            this.$store.commit('setAuthParam', false);
+            this.$store.commit("setAuthParam", false);
           }
         });
     },

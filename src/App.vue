@@ -58,7 +58,7 @@
     </v-navigation-drawer>
     <v-main app>
       <v-container fluid>
-        <router-view v-on:authenticate="initPage" />
+        <router-view @authenticate="initPage" />
       </v-container>
     </v-main>
   </v-app>
@@ -70,7 +70,7 @@ export default {
   data() {
     return {
       user:{
-        img:'https://im0-tub-ru.yandex.net/i?id=46879abc0a7a4cb04fcc7696aa6bd2fd&n=13',
+        img:'',
         name:''
       },
     };
@@ -78,9 +78,10 @@ export default {
   methods: {
     initPage(){
       if(this.$store.state.isAuthorised){
-        console.log("YES");
         this.user.img = `https://randomuser.me/api/portraits/men/${this.$store.state.userData.id}.jpg`;
         this.user.name = this.$store.state.userData.name;
+      }else{
+        this.user.img = `https://img2.freepng.ru/20180616/qqc/kisspng-question-mark-computer-icons-clip-art-5b24b766383476.9523211315291329022302.jpg`;
       }
     }
   },
