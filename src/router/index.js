@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import UserProfile from '../views/UserProfile.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Users from '../views/Users.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,10 @@ const routes = [
   {
     path: '/register',
     component: Register
+  },
+  {
+    path: '/users',
+    component: Users
   }
 ]
 
